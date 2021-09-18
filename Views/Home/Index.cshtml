@@ -1,0 +1,52 @@
+﻿@model Search
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="col-md-4 container-fluid" style="float:right">
+    <form method="post" asp-controller="Home" asp-action="SearchFood">
+        <div class="input-group">
+            <input asp-for="@Model.SearchItem" type="text" class="form-control search-menu" placeholder="Search Food Item">
+            <div class="input-group-append">
+                <span class="input-group-text">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <h1>You're One Click Away From</h1>
+    <h1>Satisfying Your Taste Buds!</h1>
+    <a type="button" class="btn btn-info" asp-controller="Home" asp-action="Speciality">Start Shopping!</a>
+    <br />
+    <br />
+    <br />
+    <div class="col-sm-12">
+        <div class="card-deck">
+            <div class="card border-info mb-3" style="max-width: 18rem; border-radius: 10%">
+                @* <div class="card-header" style="text-align:center">Authe</div>*@
+                <div class="card-body text-info">
+                    <h5 class="card-title" style="text-align:center">Authentic Taste</h5>
+                    <p class="card-text" style="text-align:center"">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+            <div class="card border-info mb-3" style="max-width: 18rem; border-radius: 10%">
+                @* <div class="card-header" style="text-align:center">Authe</div>*@
+                <div class="card-body text-info">
+                    <h5 class="card-title"style="text-align:center">Fast Delivery</h5>
+                    <p class="card-text"style="text-align:center">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+            <div class="card border-info mb-3" style="max-width: 18rem; border-radius: 10%">
+                @* <div class="card-header" style="text-align:center">Authe</div>*@
+                <div class="card-body text-info">
+                    <h5 class="card-title"style="text-align:center">Live Tracking</h5>
+                    <p class="card-text"style="text-align:center">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>

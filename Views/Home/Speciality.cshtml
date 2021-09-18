@@ -1,0 +1,8 @@
+﻿@model IEnumerable<FoodItem>
+
+    <div class="row" style="margin:40px">
+        @foreach (var item in Model)
+        {
+            <partial name="_specialItems" model="item" />
+        }
+        </div>

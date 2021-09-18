@@ -1,0 +1,125 @@
+﻿@using Microsoft.AspNetCore.Identity
+<!DOCTYPE html>
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FoodDeliveryMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <script src="~/js/worker.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Courgette&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+       @* <partial name="_LoginPartial" />*@
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h2 style="font-family: 'Courgette', cursive">Click To Eat!</h2>
+                <h5 style="font-family: 'Amatic SC', cursive;">Why Starve When You Have Us?</h5>
+            </div>
+            <ul class="list-unstyled components">
+
+                <li class="active">
+
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Menu</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        @await Component.InvokeAsync("CategoryMenu")
+                    </ul>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="Speciality">Chef's Special</a>
+                </li>
+                <li>
+                    <a asp-controller="About" asp-action="Index">About Us</a>
+                <li>
+                    <a asp-controller="Contact" asp-action="Index">Contact Us</a>
+                </li>
+
+            </ul>
+            <div class="footer-basic">
+                <footer>
+                    <div class="social"><a href="#"><i class="fa fa-instagram fa-2x"></i></a><a href="#"><i class="fa fa-facebook fa-2x"></i></a><a href="#"><i class="fa fa-whatsapp fa-2x"></i></a></div>
+
+                    <p class="copyright">Click To Eat © 2021</p>
+                </footer>
+            </div>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fa fa-align-justify"></i>
+
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+
+
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/cart/index">
+                                        <i class="fa fa-shopping-cart fa-2x"></i>  @await Component.InvokeAsync("CartCount")
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                        <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                    </form>
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+
+
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+
+
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
